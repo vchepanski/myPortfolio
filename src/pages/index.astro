@@ -1,11 +1,305 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { projects } from '../data/projects';
+import ProjectCard from '../components/ProjectCard.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const differentiators = [
+  {
+    title: 'Processo direto',
+    description: 'Briefing curto, alinhamento rápido e protótipo validado em dias — sem burocracia.',
+    icon: 'M4 6h16M4 12h16M4 18h9',
+  },
+  {
+    title: 'Código que fica',
+    description: 'Padronização, testes rápidos e documentação de handoff para não travar o time.',
+    icon: 'M5 5.5h14M8 4v3M16 4v3M6 8h12v12H6z',
+  },
+  {
+    title: 'Foco em métricas',
+    description: 'Monitoro SEO, performance e uso para provar o impacto de cada entrega.',
+    icon: 'M4 18l4-5 4 4 7-10',
+  },
+];
+
+const finalCallouts = [
+  {
+    title: 'Resposta rápida',
+    description: 'Retorno em até 24h com primeiro diagnóstico do desafio.',
+  },
+  {
+    title: 'Escopo alinhado',
+    description: 'Mapeamos o problema juntos antes de escrever qualquer linha de código.',
+  },
+  {
+    title: 'Entrega documentada',
+    description: 'Handoff claro, com próximos passos para o time dar continuidade.',
+  },
+];
 ---
+<Layout title="Vanderlei – Desenvolvedor Web" description="Portfólio com cases e projetos.">
 
-<Layout>
-	<Welcome />
+  <!-- HERO -->
+  <section class="grid items-center gap-10 md:grid-cols-2">
+    <div class="space-y-5">
+      <span class="animate-rise text-[11px] font-semibold uppercase tracking-[0.4em] text-white/50">Dev Laravel &amp; Front-end</span>
+      <h1 class="animate-rise delay-1 text-4xl font-bold tracking-tight md:text-5xl">Desenvolvedor Web</h1>
+      <p class="animate-rise delay-2 text-lg text-neutral-300">
+        Crio experiências web claras, rápidas e alinhadas ao objetivo real do negócio.
+      </p>
+      <div class="animate-rise delay-3 flex flex-wrap gap-3">
+        <a href="/projects" class="inline-flex rounded-xl bg-white px-4 py-2 text-sm font-medium text-black hover:opacity-90 hover-glow">Ver projetos</a>
+        <a href="/contact" class="inline-flex rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/10 hover-glow">Contato</a>
+      </div>
+    </div>
+
+    <!-- Foto -->
+    <div class="flex justify-center md:justify-end">
+      <div class="relative animate-rise delay-2">
+        <span aria-hidden class="absolute inset-0 -z-10 rounded-full bg-gradient-to-tr from-red-500/35 via-violet-500/20 to-transparent blur-3xl opacity-80"></span>
+        <span aria-hidden class="absolute inset-0 -z-20 h-full w-full rounded-full bg-red-500/12 blur-[120px]"></span>
+        <img
+          src="/images/vanderlindo4.jpg"
+          alt="Foto de perfil de Vanderlei"
+          width="224"
+          height="224"
+          class="h-56 w-56 rounded-full object-cover ring-1 ring-white/15 shadow-[0_30px_70px_-40px_rgba(239,68,68,.9)] animate-float"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MIM -->
+  <section class="mt-12">
+    <div class="grid gap-6 md:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)]">
+      <article class="surface p-6 animate-rise">
+        <h2 class="text-xl font-semibold md:text-2xl">Sobre mim</h2>
+        <p class="mt-3 text-neutral-300">
+          Sou <strong>Vanderlei Chepanski</strong>, formado em <strong>Sistemas para Internet (UniCesumar)</strong>.
+          Passei por suporte e infraestrutura antes de mergulhar no desenvolvimento Laravel e hoje conecto front, back
+          e time de negócio em entregas contínuas.
+        </p>
+        <p class="mt-3 text-neutral-300">
+          Meu foco é reduzir atrito: briefings claros, análise de dados para priorizar o que importa e código preparado para quem
+          vai manter depois.
+        </p>
+        <a href="/about" class="mt-4 inline-flex items-center text-sm underline underline-offset-2">Ler mais</a>
+      </article>
+
+      <article class="surface p-6 animate-rise delay-1">
+        <h3 class="text-lg font-semibold text-white">Como eu me diferencio</h3>
+        <ul class="mt-4 space-y-4">
+          {differentiators.map((item) => (
+            <li class="flex gap-4">
+              <span class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/8 text-white/80 ring-1 ring-white/15">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={item.icon}></path>
+                </svg>
+              </span>
+              <div>
+                <h4 class="text-sm font-semibold text-white">{item.title}</h4>
+                <p class="mt-1 text-sm text-neutral-300">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROJETOS EM DESTAQUE (carrossel: loop contínuo à direita + destaque no centro) -->
+  <section class="mt-14">
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-semibold md:text-2xl">Projetos em destaque</h2>
+      <a href="/projects" class="text-sm underline underline-offset-2">Ver todos</a>
+    </div>
+
+    <div class="relative mt-4">
+      <!-- fades nas bordas -->
+      <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[var(--bg)] to-transparent"></div>
+      <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[var(--bg)] to-transparent"></div>
+
+      <!-- carrossel -->
+      <div id="proj-carousel" class="carousel pr-10" aria-label="Projetos em destaque" tabindex="0">
+        <div id="proj-track" class="flex items-stretch gap-6">
+          {projects.map((p) => (
+            <div class="carousel-item min-w-[300px] max-w-[320px] transition duration-300 ease-out will-change-transform">
+              <ProjectCard project={p} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- seta (somente direita) -->
+      <button
+        id="proj-next"
+        class="absolute right-1 top-1/2 -translate-y-1/2 hidden items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur px-3 py-3 hover:bg-white/20 md:inline-flex"
+        aria-label="Próximo"
+        title="Próximo"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-4 flex items-center gap-2 text-xs text-neutral-400 md:hidden">
+      <span class="h-px w-12 bg-white/15"></span>
+      <span>Arraste para explorar</span>
+      <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 7l4 4 4-4" />
+      </svg>
+    </div>
+
+    <!-- script do carrossel -->
+    <script>
+      const carousel = document.querySelector('#proj-carousel');
+      const track = document.querySelector('#proj-track');
+      const nextBtn = document.querySelector('#proj-next');
+
+      if (carousel && track) {
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const GAP_PX = 24; // gap-6
+        const STEP_MS = 2800; // ajuste a velocidade aqui (mais alto = mais suave)
+        const behavior = prefersReduce ? 'auto' : 'smooth';
+
+        // duplica itens para permitir loop infinito
+        const originals = Array.from(track.children);
+        originals.forEach((el) => track.appendChild(el.cloneNode(true)));
+
+        let CARD_W = 320 + GAP_PX;
+        let BASE_W = 0;
+
+        const recalc = () => {
+          const first = track.children[0];
+          CARD_W = first ? Math.round(first.getBoundingClientRect().width) + GAP_PX : 320 + GAP_PX;
+          // largura do conjunto original
+          BASE_W = originals.reduce((acc, el, idx) => {
+            const w = Math.round(el.getBoundingClientRect().width);
+            return acc + w + (idx ? GAP_PX : 0);
+          }, 0);
+          updateActive(); // recalcula destaque
+        };
+        recalc();
+        window.addEventListener('resize', recalc);
+
+        // destaca o card mais central (escala/opacidade/zIndex)
+        function updateActive() {
+          const center = carousel.scrollLeft + carousel.clientWidth / 2;
+          const items = track.querySelectorAll('.carousel-item');
+          items.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const left =
+              rect.left +
+              window.scrollX -
+              carousel.getBoundingClientRect().left -
+              window.scrollX +
+              carousel.scrollLeft;
+            const itemCenter = left + rect.width / 2;
+            const dist = Math.abs(center - itemCenter);
+            const norm = Math.min(1, dist / (carousel.clientWidth * 0.6)); // 0 no centro e 1 nas bordas
+            const scale = 1 - 0.12 * norm;
+            const opacity = 1 - 0.25 * norm;
+            el.style.transform = `scale(${scale})`;
+            el.style.opacity = opacity.toFixed(3);
+            el.style.zIndex = String(Math.round((1 - norm) * 10));
+            const isActive = norm < 0.35;
+            el.classList.toggle('is-active', isActive);
+          });
+        }
+
+        // sempre avança para a direita (wrap invisível ao cruzar BASE_W)
+        const stepRight = () => {
+          if (carousel.scrollLeft >= BASE_W) {
+            carousel.scrollTo({ left: carousel.scrollLeft - BASE_W, behavior: 'auto' });
+          }
+          carousel.scrollTo({ left: carousel.scrollLeft + CARD_W, behavior });
+          // atualiza destaque levemente depois do scroll iniciar
+          setTimeout(updateActive, 60);
+        };
+
+        let timer = null;
+        const start = () => {
+          if (!prefersReduce && !timer) timer = setInterval(stepRight, STEP_MS);
+        };
+        const stop = () => {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+        };
+
+        // interações pausam/retomam
+        ['mouseenter', 'touchstart', 'focusin', 'pointerdown'].forEach((ev) =>
+          carousel.addEventListener(ev, stop, { passive: true })
+        );
+        ['mouseleave', 'touchend', 'focusout', 'pointerup'].forEach((ev) =>
+          carousel.addEventListener(ev, start, { passive: true })
+        );
+
+        // seta manual
+        nextBtn?.addEventListener('click', () => {
+          stop();
+          stepRight();
+          start();
+        });
+
+        // teclado (seta direita)
+        carousel.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+            stop();
+            stepRight();
+            start();
+          }
+        });
+
+        // atualiza durante rolagem manual
+        carousel.addEventListener('scroll', () => {
+          requestAnimationFrame(updateActive);
+        });
+
+        // inicia
+        updateActive();
+        start();
+      }
+    </script>
+  </section>
+
+  <!-- Chamada final -->
+  <section class="mt-14">
+    <div class="surface p-6 md:p-8">
+      <div class="grid gap-8 md:grid-cols-[minmax(0,1.2fr),minmax(0,0.8fr)] md:items-center">
+        <div class="space-y-4">
+          <h2 class="text-xl font-semibold md:text-2xl">Vamos conversar sobre o próximo projeto?</h2>
+          <p class="text-sm text-neutral-300">
+            Conte sua dor e eu ajudo a traduzir em requisitos técnicos, roadmap e entregas mensuráveis. O objetivo é sair da conversa inicial com um plano claro para seguir.
+          </p>
+          <ul class="space-y-3 text-sm text-neutral-300">
+            {finalCallouts.map((item) => (
+              <li class="flex gap-3">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-[10px] font-semibold text-white/70">
+                  ✓
+                </span>
+                <div>
+                  <p class="font-semibold text-white">{item.title}</p>
+                  <p class="text-neutral-300">{item.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-neutral-200 shadow-[0_24px_60px_-40px_rgba(148,163,184,.55)]">
+          <p>
+            Já tem um escopo desenhado ou precisa de ajuda para tirar a ideia do papel? Vamos marcar uma call rápida e definir os próximos passos.
+          </p>
+          <a href="/contact" class="mt-6 inline-flex w-full justify-center rounded-xl bg-white px-4 py-2 text-sm font-medium text-black hover:opacity-90 hover-glow">
+            Falar comigo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>

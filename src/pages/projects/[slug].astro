@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = projects.find((p) => p.slug === slug);
+if (!project) throw new Error('Projeto não encontrado');
+---
+<Layout title={`${project.title} — Vanderlei`} description={project.summary}>
+  <article class="prose prose-invert max-w-none">
+    <h1>{project.title}</h1>
+    <p><strong>Stack:</strong> {project.stack.join(' • ')}</p>
+    <h3>Resumo</h3>
+    <p>{project.summary}</p>
+  </article>
+</Layout>

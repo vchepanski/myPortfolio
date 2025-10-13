@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contato — Vanderlei" description="Fale comigo.">
+  <section class="surface p-5">
+    <h1 class="text-2xl md:text-3xl font-semibold">Contato</h1>
+    <form action="https://formspree.io/f/SEU_ENDPOINT" method="POST" class="mt-4 max-w-lg space-y-3">
+      <input name="name"  placeholder="Nome"  class="w-full rounded-xl border border-white/15 bg-transparent p-2" required />
+      <input name="email" type="email" placeholder="Email" class="w-full rounded-xl border border-white/15 bg-transparent p-2" required />
+      <textarea name="message" placeholder="Mensagem" class="w-full rounded-xl border border-white/15 bg-transparent p-2" rows="5" required></textarea>
+      <button class="inline-flex rounded-xl px-4 py-2 text-sm font-medium bg-white text-black hover:opacity-90 hover-glow">Enviar</button>
+    </form>
+  </section>
+</Layout>

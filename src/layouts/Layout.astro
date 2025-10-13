@@ -1,22 +1,83 @@
+---
+import '../styles/global.css';
+const { title = 'Portfólio', description = 'Dev Web' } = Astro.props;
+---
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+		<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title><meta name="description" content={description} />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+		<!-- Tipografia: títulos (Space Grotesk) e monospace (JetBrains Mono) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+		<style>
+		:root{
+			--font-title:'Space Grotesk',system-ui,sans-serif;
+			--font-mono:'JetBrains Mono',ui-monospace,monospace;
+		}
+		h1,h2,h3{ font-family: var(--font-title); letter-spacing:-0.01em }
+		code,.mono{ font-family: var(--font-mono); }
+		</style>
+	</head>
+  <body class="min-h-screen antialiased">
+    <header class="border-b border-white/10">
+      <nav class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+        <a href="/" class="font-semibold">Vanderlei</a>
+        <ul class="flex gap-4 text-sm">
+          <li><a href="/projects" class="hover:opacity-80">Projetos</a></li>
+          <li><a href="/about" class="hover:opacity-80">Sobre</a></li>
+          <li><a href="/contact" class="hover:opacity-80">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-5xl px-4 py-10">
+      <slot />
+    </main>
+    <footer class="border-t border-white/10">
+      <div class="mx-auto max-w-5xl px-4 py-6 text-sm text-neutral-400">
+        © {new Date().getFullYear()} Vanderlei
+      </div>
+    </footer>
+	  <!-- Tilt/Sheen para .card[data] -->
+  <script>
+    const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = () => Array.from(document.querySelectorAll('.card.tilt'));
+
+    function onMove(e, el){
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX ?? (e.touches?.[0]?.clientX || 0)) - r.left;
+      const y = (e.clientY ?? (e.touches?.[0]?.clientY || 0)) - r.top;
+      const px = (x / r.width) - 0.5;
+      const py = (y / r.height) - 0.5;
+      // Ângulos suaves
+      const rx = (prefersReduce ? 0 : (-py * 6)).toFixed(2);
+      const ry = (prefersReduce ? 0 : ( px * 6)).toFixed(2);
+      el.style.setProperty('--rx', rx + 'deg');
+      el.style.setProperty('--ry', ry + 'deg');
+      el.style.setProperty('--tz', prefersReduce ? '0px' : '14px');
+      // Sheen segue o mouse
+      el.style.setProperty('--mx', (x.toFixed(0)) + 'px');
+      el.style.setProperty('--my', (y.toFixed(0)) + 'px');
+    }
+
+    function reset(el){
+      el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); el.style.setProperty('--tz','0px');
+    }
+
+    function bind(el){
+      el.addEventListener('mousemove', (e)=>onMove(e,el));
+      el.addEventListener('mouseleave', ()=>reset(el));
+      el.addEventListener('touchstart', (e)=>onMove(e,el), {passive:true});
+      el.addEventListener('touchmove',  (e)=>onMove(e,el), {passive:true});
+      el.addEventListener('touchend',   ()=>reset(el));
+    }
+
+    // inicializa ao carregar e quando a página navega (Astro SPA islands)
+    const init = () => cards().forEach(bind);
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

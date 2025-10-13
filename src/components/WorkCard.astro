@@ -1,0 +1,18 @@
+---
+import type { Project } from '../data/projects';
+const { work }:{ work: Project } = Astro.props;
+---
+<article class="card tilt accent-red p-5">
+  <div class="flex items-baseline justify-between gap-3">
+    <h2 class="text-xl md:text-2xl font-semibold">{work.title}</h2>
+    <span class="text-xs text-neutral-400">2024 — presente</span>
+  </div>
+  <p class="mt-2 text-sm text-neutral-300">{work.summary}</p>
+  <div class="mt-3 flex flex-wrap gap-2">
+    {work.stack.map((s) => (
+      <span class="rounded-lg border border-white/10 bg-white/10 px-2 py-1 text-xs">{s}</span>
+    ))}
+  </div>
+  <a href={`/projects/${work.slug}`} class="mt-4 inline-block text-sm underline underline-offset-2">Ver case completo</a>
+  <span class="shine"></span>
+</article>

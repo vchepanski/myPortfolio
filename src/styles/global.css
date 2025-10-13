@@ -1,1 +1,146 @@
 @import "tailwindcss";
+
+/* ---- Tema dark ---- */
+:root{
+  --bg:#0B0F14; --text:#E5E7EB; --muted:#94A3B8;
+}
+html,body{ height:100% }
+body{
+  background-color: var(--bg);
+  color: var(--text);
+  background-image:
+    radial-gradient(900px 500px at 15% -10%, rgba(139,92,246,.18), transparent 60%),
+    radial-gradient(700px 400px at 100% 0%, rgba(249,115,22,.12), transparent 60%);
+  background-repeat: no-repeat;
+}
+
+/* ---- Superfícies e glow antigos (mantidos) ---- */
+.surface{ background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; }
+.glow-red   { box-shadow: 0 0 70px -16px rgba(239,68,68,.60); }
+.glow-green { box-shadow: 0 0 70px -16px rgba(16,185,129,.60); }
+.glow-violet{ box-shadow: 0 0 70px -16px rgba(139,92,246,.60); }
+.hover-glow:hover { box-shadow: 0 0 80px -16px rgba(139,92,246,.8); }
+.border-red   { border-color: rgba(239,68,68,.35) !important; }
+.border-green { border-color: rgba(16,185,129,.35) !important; }
+
+/* ---- Cards PRO (gradiente + tilt + sheen) ---- */
+.card{
+  position: relative;
+  border-radius: 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  transform-style: preserve-3d;
+  transition: transform .3s ease, background .2s ease, border-color .2s ease;
+  will-change: transform;
+}
+.card:hover{ background: rgba(255,255,255,.06); }
+
+/* Borda em gradiente via máscara */
+.card::before{
+  content:"";
+  position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+  background: var(--card-border, linear-gradient(135deg, rgba(139,92,246,.7), rgba(255,255,255,.15)));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events:none;
+}
+
+/* Sheen (halo) que segue o mouse */
+.card .shine{
+  position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:
+    radial-gradient(500px 200px at var(--mx,50%) -20%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(400px 160px at -10% var(--my,50%), rgba(139,92,246,.15), transparent 60%);
+  transition: background-position .2s ease;
+}
+
+/* Acentos por tipo */
+.card.accent-red  { --card-border: linear-gradient(135deg, rgba(239,68,68,.9), rgba(249,115,22,.65)); box-shadow: 0 0 70px -16px rgba(239,68,68,.55); }
+.card.accent-green{ --card-border: linear-gradient(135deg, rgba(34,197,94,.9), rgba(45,212,191,.65)); box-shadow: 0 0 70px -16px rgba(16,185,129,.55); }
+
+/* Project cards (carrossel + grid) */
+.project-card{
+  position: relative;
+  isolation: isolate;
+  backdrop-filter: blur(12px);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, filter .3s ease;
+}
+.project-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  background:
+    radial-gradient(120% 120% at 22% -10%, rgba(255,255,255,.18), transparent 65%),
+    radial-gradient(160% 140% at 80% -20%, rgba(255,255,255,.10), transparent 70%);
+  opacity:0;
+  transition: opacity .35s ease;
+  z-index:0;
+}
+.project-card__body{ position:relative; z-index:1; }
+.project-card__glow{
+  background: linear-gradient(to bottom, rgba(255,255,255,.18), transparent 70%);
+  filter: blur(16px);
+  z-index:0;
+}
+.project-card__thumb{
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+}
+.project-card:hover,
+.carousel-item.is-active .project-card{
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,.22);
+}
+.project-card:hover::before,
+.carousel-item.is-active .project-card::before{
+  opacity:1;
+}
+.carousel-item.is-active .project-card{
+  box-shadow: 0 36px 90px -38px rgba(148,163,184,.70);
+}
+.project-card__cta{
+  text-transform:none;
+}
+.line-clamp-3{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* Animations */
+@keyframes rise-in{
+  from{ opacity:0; transform:translateY(18px) scale(.98); }
+  to  { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes float-soft{
+  0%,100%{ transform: translateY(0); }
+  50%    { transform: translateY(-6px); }
+}
+.animate-rise{
+  opacity:0;
+  animation: rise-in .75s cubic-bezier(.21,1,.29,1) forwards;
+}
+.animate-rise.delay-1{ animation-delay:.12s; }
+.animate-rise.delay-2{ animation-delay:.24s; }
+.animate-rise.delay-3{ animation-delay:.36s; }
+.animate-float{
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+/* Tilt: usa CSS vars definidas via JS (degrada sem JS) */
+.tilt{
+  transform: perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(var(--tz,0px));
+}
+@media (prefers-reduced-motion: reduce){
+  .tilt{ transform: none !important; }
+}
+
+/* Carrossel (mantido) */
+.carousel{ overflow-x:auto; scroll-snap-type:x mandatory; -ms-overflow-style:none; scrollbar-width:none; }
+.carousel::-webkit-scrollbar{ display:none; }
+.card-snap{ scroll-snap-align:start; }
+
+/* A11y foco visível */
+a:focus-visible, button:focus-visible{ outline:2px solid rgba(139,92,246,.8); outline-offset:2px; border-radius:12px; }
