@@ -35,9 +35,99 @@ const { title = 'Portfólio', description = 'Dev Web' } = Astro.props;
     <main class="mx-auto max-w-5xl px-4 py-10">
       <slot />
     </main>
-    <footer class="border-t border-white/10">
-      <div class="mx-auto max-w-5xl px-4 py-6 text-sm text-neutral-400">
-        © {new Date().getFullYear()} Vanderlei
+    <footer class="border-t border-white/10 bg-gradient-to-t from-white/5 via-transparent">
+      <div class="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 text-sm text-neutral-300 md:flex-row md:items-start md:justify-between">
+        <div class="space-y-3">
+          <span class="text-base font-semibold text-white">Vanderlei Chepanski</span>
+          <p class="max-w-md text-neutral-400">
+            Desenvolvedor web focado em Laravel e produto digital. Construo experiências claras,
+            escaláveis e documentadas para que o time avance com segurança.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 text-neutral-400">
+            <a
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 transition hover:bg-white/15 hover:text-white"
+              href="https://www.instagram.com/vanderlei_chep/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram de Vanderlei"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+                <path d="M16.5 7.5h.01"></path>
+                <circle cx="12" cy="12" r="4"></circle>
+              </svg>
+            </a>
+            <a
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 transition hover:bg-white/15 hover:text-white"
+              href="https://www.linkedin.com/in/vanderlei-chepanski-aba47823b/"
+              target="_blank"
+              rel="noopener"
+              aria-label="LinkedIn de Vanderlei"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5a2 2 0 1 1 0 3.99 2 2 0 0 1 0-3.99Zm.02 5.01H3V20h3v-11.49Zm5 0H8V20h3v-6.53c0-1.27.24-2.5 1.82-2.5 1.55 0 1.57 1.44 1.57 2.58V20h3v-6.93c0-3.23-.68-5.1-4.09-5.1-1.66 0-2.77.91-3.27 1.77H10Z" />
+              </svg>
+            </a>
+            <a
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 transition hover:bg-white/15 hover:text-white"
+              href="https://github.com/vchepanski"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub de Vanderlei"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.52 2.87 8.36 6.86 9.72.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.79.62-3.38-1.38-3.38-1.38-.46-1.2-1.12-1.52-1.12-1.52-.92-.64.07-.63.07-.63 1.02.07 1.56 1.08 1.56 1.08.9 1.58 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.06 1.03-2.79-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.06a9.18 9.18 0 0 1 5 0c1.91-1.33 2.75-1.06 2.75-1.06.55 1.42.2 2.47.1 2.73.64.73 1.03 1.66 1.03 2.79 0 3.96-2.34 4.83-4.57 5.09.36.33.68.98.68 1.99 0 1.44-.01 2.6-.01 2.95 0 .26.18.58.69.48A10.052 10.052 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
+              </svg>
+            </a>
+            <a
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 transition hover:bg-white/15 hover:text-white"
+              href="https://wa.me/5542999636468"
+              target="_blank"
+              rel="noopener"
+              aria-label="WhatsApp de Vanderlei"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2C6.58 2 2 6.15 2 11.3c0 2.09.74 3.99 1.98 5.49L3 22l5.39-1.68c1.18.33 2.24.51 3.66.51 5.46 0 10.02-4.15 10.02-9.3S17.5 2 12.04 2Zm.05 16.5c-1.24 0-2.3-.29-3.32-.63l-.24-.08-3.24 1 1.07-3.13-.16-.25c-1-1.08-1.6-2.46-1.6-3.95 0-3.72 3.26-6.75 7.25-6.75 3.84 0 7.16 2.96 7.16 6.68s-3.3 6.68-7.16 6.68Zm4.13-4.99c-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.5.11-.15.23-.58.75-.7.9-.13.15-.26.17-.48.06-.23-.11-.97-.35-1.84-1.11-.68-.6-1.14-1.34-1.27-1.56-.13-.23-.01-.35.1-.48.1-.1.23-.26.34-.38.11-.13.15-.23.23-.38.08-.15.04-.28-.02-.38-.06-.11-.5-1.2-.69-1.64-.18-.44-.37-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.4.06-.61.28-.21.23-.8.78-.8 1.9 0 1.12.82 2.2.94 2.35.13.15 1.61 2.57 3.91 3.5.55.24.98.38 1.31.49.55.17 1.05.15 1.45.09.44-.07 1.36-.55 1.55-1.09.19-.53.19-.99.13-1.09-.06-.1-.21-.17-.45-.28Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">Navegação</h3>
+            <ul class="mt-3 space-y-2 text-neutral-400">
+              <li><a class="transition hover:text-white" href="/projects">Projetos</a></li>
+              <li><a class="transition hover:text-white" href="/about">Sobre</a></li>
+              <li><a class="transition hover:text-white" href="/contact">Contato</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">Contato</h3>
+            <ul class="mt-3 space-y-2 text-neutral-400">
+              <li><a class="transition hover:text-white" href="mailto:vchepanski@outlook.com">vchepanski@outlook.com</a></li>
+              <li>
+                <a
+                  class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 font-semibold text-white transition hover:bg-white/15"
+                  href="https://wa.me/5542999636468"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Abrir conversa no WhatsApp com Vanderlei"
+                >
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12.04 2C6.58 2 2 6.15 2 11.3c0 2.09.74 3.99 1.98 5.49L3 22l5.39-1.68c1.18.33 2.24.51 3.66.51 5.46 0 10.02-4.15 10.02-9.3S17.5 2 12.04 2Zm.05 16.5c-1.24 0-2.3-.29-3.32-.63l-.24-.08-3.24 1 1.07-3.13-.16-.25c-1-1.08-1.6-2.46-1.6-3.95 0-3.72 3.26-6.75 7.25-6.75 3.84 0 7.16 2.96 7.16 6.68s-3.3 6.68-7.16 6.68Zm4.13-4.99c-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.5.11-.15.23-.58.75-.7.9-.13.15-.26.17-.48.06-.23-.11-.97-.35-1.84-1.11-.68-.6-1.14-1.34-1.27-1.56-.13-.23-.01-.35.1-.48.1-.1.23-.26.34-.38.11-.13.15-.23.23-.38.08-.15.04-.28-.02-.38-.06-.11-.5-1.2-.69-1.64-.18-.44-.37-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.4.06-.61.28-.21.23-.8.78-.8 1.9 0 1.12.82 2.2.94 2.35.13.15 1.61 2.57 3.91 3.5.55.24.98.38 1.31.49.55.17 1.05.15 1.45.09.44-.07 1.36-.55 1.55-1.09.19-.53.19-.99.13-1.09-.06-.1-.21-.17-.45-.28Z" />
+                  </svg>
+                  WhatsApp
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10">
+        <div class="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-4 text-xs text-neutral-500 md:flex-row md:items-center md:justify-between">
+          <p>Copyright {new Date().getFullYear()} Vanderlei Chepanski</p>
+          <p>Feito com Astro + Laravel no coração</p>
+        </div>
       </div>
     </footer>
 	  <!-- Tilt/Sheen para .card[data] -->
